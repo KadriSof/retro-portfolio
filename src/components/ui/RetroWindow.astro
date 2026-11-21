@@ -1,0 +1,26 @@
+
+
+---
+interface Props {
+  title: string;
+  id?: string;
+}
+
+const { title, id } = Astro.props;
+---
+
+<article class="retro-window" id={id}>
+  <header class="window-titlebar">
+    <span class="window-title">{title}</span>
+
+    <div class="window-controls" aria-hidden="true">
+      <span class="window-control"></span>
+      <span class="window-control"></span>
+      <span class="window-control"></span>
+    </div>
+  </header>
+
+  <div class="window-body">
+    <slot />
+  </div>
+</article>

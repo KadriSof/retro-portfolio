@@ -1,0 +1,76 @@
+
+
+---
+import RetroWindow from "../ui/RetroWindow.astro";
+import TerminalPrompt from "../ui/TerminalPrompt.astro";
+import StatusIndicator from "../ui/StatusIndicator.astro";
+---
+
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">PERSONAL ENGINEERING ARCHIVE // VERSION 1.0</p>
+
+      <h1>
+        Building systems.
+        <span>Engineering intelligence.</span>
+      </h1>
+
+      <p class="hero-description">
+        Software engineer working across software engineering,
+        data engineering, machine learning, and computer vision.
+        Interested in the systems that connect computation,
+        information, and the physical world.
+      </p>
+
+      <div class="hero-actions">
+        <a class="pixel-button" href="#projects">
+          Explore projects
+        </a>
+
+        <a class="pixel-button pixel-button--secondary" href="#contact">
+          Establish contact
+        </a>
+      </div>
+
+      <div class="hero-meta">
+        <StatusIndicator label="Portfolio system online" />
+        <span class="eyebrow">MODE: ENGINEERING</span>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <RetroWindow title="SYSTEM / OPERATOR PROFILE">
+        <div class="hero-card-row">
+          <span>IDENTIFIER</span>
+          <span>SOF</span>
+        </div>
+
+        <div class="hero-card-row">
+          <span>PRIMARY DOMAIN</span>
+          <span>SOFTWARE</span>
+        </div>
+
+        <div class="hero-card-row">
+          <span>DATA SYSTEMS</span>
+          <span>ACTIVE</span>
+        </div>
+
+        <div class="hero-card-row">
+          <span>INTELLIGENCE</span>
+          <span>ML / CV</span>
+        </div>
+
+        <div class="hero-card-row">
+          <span>INTERFACE</span>
+          <span>ONLINE</span>
+        </div>
+
+        <TerminalPrompt
+          command="initialize_portfolio"
+          output="Initialization complete. Welcome."
+        />
+      </RetroWindow>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+
+
+---
+interface Props {
+  label: string;
+  state?: "online" | "warning" | "offline";
+}
+
+const { label, state = "online" } = Astro.props;
+---
+
+<span class="status-indicator" data-state={state}>
+  <span class="status-dot" aria-hidden="true"></span>
+  <span>{label}</span>
+</span>

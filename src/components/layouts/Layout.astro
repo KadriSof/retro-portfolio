@@ -1,0 +1,45 @@
+
+---
+import Navigation from "./Navigation.astro";
+import Footer from "./Footer.astro";
+
+import "../../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Engineering Archive | Software & Data",
+  description =
+    "Software engineering, data engineering, machine learning and computer vision portfolio.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content={description}
+    />
+    <meta name="theme-color" content="#101310" />
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <div class="site-shell">
+      <a class="skip-link" href="#main-content">Skip to content</a>
+      <Navigation />
+
+      <main class="site-main" id="main-content">
+        <slot />
+      </main>
+
+      <Footer />
+    </div>
+  </body>
+</html>

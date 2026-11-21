@@ -1,0 +1,191 @@
+
+
+---
+import RetroWindow from "../ui/RetroWindow.astro";
+import { engineeringAttributes } from "../../data/skills";
+import { achievements } from "../../data/achievements";
+
+const centerX = 210;
+const centerY = 175;
+const radius = 112;
+
+const radarCoordinates = (score: number, index: number) => {
+  const angle = (-90 + index * 60) * (Math.PI / 180);
+  const distance = (score / 5) * radius;
+
+  return {
+    x: centerX + Math.cos(angle) * distance,
+    y: centerY + Math.sin(angle) * distance,
+  };
+};
+
+const radarPoints = engineeringAttributes
+  .map((attribute, index) => {
+    const point = radarCoordinates(attribute.score, index);
+    return `${point.x},${point.y}`;
+  })
+  .join(" ");
+
+const radarRings = Array.from({ length: 5 }, (_, index) => {
+  const score = index + 1;
+
+  return engineeringAttributes
+    .map((_, axisIndex) => {
+      const point = radarCoordinates(score, axisIndex);
+      return `${point.x},${point.y}`;
+    })
+    .join(" ");
+});
+
+const radarAxes = engineeringAttributes.map((attribute, index) => {
+  const angle = (-90 + index * 60) * (Math.PI / 180);
+  const outerRadius = radius + 27;
+
+  return {
+    ...attribute,
+    x1: centerX,
+    y1: centerY,
+    x2: centerX + Math.cos(angle) * radius,
+    y2: centerY + Math.sin(angle) * radius,
+    labelX: centerX + Math.cos(angle) * outerRadius,
+    labelY: centerY + Math.sin(angle) * outerRadius,
+    anchor:
+      Math.cos(angle) > 0.3
+        ? "start"
+        : Math.cos(angle) < -0.3
+          ? "end"
+          : "middle",
+  };
+});
+---
+
+<div class="character-sheet-module">
+  <RetroWindow title="CHARACTER PROFILE / DOMAIN EVIDENCE">
+    <div class="character-sheet">
+      <div class="character-radar">
+        <div class="character-module-heading">
+          <span>ENGINEERING ATTRIBUTES</span>
+          <span>INDEX / 05</span>
+        </div>
+
+        <svg
+          class="radar-chart"
+          viewBox="0 0 420 350"
+          role="img"
+          aria-label="Radar chart showing engineering evidence across six domains, with scores from three to four out of five."
+        >
+          {radarRings.map((ring) => (
+            <polygon
+              points={ring}
+              fill="none"
+              stroke="var(--color-border)"
+              stroke-width="1"
+              stroke-dasharray="3 4"
+            />
+          ))}
+
+          {radarAxes.map((axis) => (
+            <>
+              <line
+                x1={axis.x1}
+                y1={axis.y1}
+                x2={axis.x2}
+                y2={axis.y2}
+                stroke="var(--color-border)"
+                stroke-width="1"
+              />
+              <text
+                x={axis.labelX}
+                y={axis.labelY}
+                text-anchor={axis.anchor}
+                dominant-baseline="middle"
+                class="radar-label"
+              >
+                {axis.label}
+              </text>
+            </>
+          ))}
+
+          <polygon
+            points={radarPoints}
+            fill="rgb(140 255 114 / 13%)"
+            stroke="var(--color-green)"
+            stroke-width="2"
+          />
+
+          {engineeringAttributes.map((attribute, index) => {
+            const point = radarCoordinates(attribute.score, index);
+
+            return (
+              <circle
+                cx={point.x}
+                cy={point.y}
+                r="4"
+                fill="var(--color-amber)"
+                stroke="var(--color-bg)"
+                stroke-width="2"
+              />
+            );
+          })}
+
+          <circle
+            cx={centerX}
+            cy={centerY}
+            r="3"
+            fill="var(--color-green)"
+          />
+        </svg>
+
+        <p class="radar-caption">
+          Evidence-based domain index. Not a standardized proficiency test.
+        </p>
+      </div>
+
+      <div class="character-attributes">
+        <div class="character-module-heading">
+          <span>ATTRIBUTE REGISTER</span>
+          <span>LVL / 05</span>
+        </div>
+
+        {engineeringAttributes.map((attribute) => (
+          <div class="attribute-row">
+            <div class="attribute-label">
+              <span>{attribute.label}</span>
+              <strong>{attribute.score}/5</strong>
+            </div>
+
+            <div
+              class="attribute-track"
+              role="meter"
+              aria-label={`${attribute.label} evidence index`}
+              aria-valuemin="0"
+              aria-valuemax="5"
+              aria-valuenow={attribute.score}
+            >
+              <span style={`--attribute-score: ${attribute.score * 20}%`}></span>
+            </div>
+
+            <p>{attribute.evidence}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="character-achievements">
+      <div class="character-module-heading">
+        <span>VERIFIED ACHIEVEMENTS</span>
+        <span>{achievements.length} RECORDS</span>
+      </div>
+
+      <div class="achievement-grid">
+        {achievements.map((achievement) => (
+          <article class="achievement-card">
+            <strong>{achievement.metric}</strong>
+            <h3>{achievement.label}</h3>
+            <p>{achievement.context}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </RetroWindow>
+</div>

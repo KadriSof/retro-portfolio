@@ -1,0 +1,148 @@
+
+
+---
+import { projects } from "../../data/projects";
+
+const featuredProjects = projects.filter((project) => project.featured);
+const supportingProjects = projects.filter((project) => !project.featured);
+
+const categoryLabels = {
+  independent: "INDEPENDENT PROJECT",
+  "professional-open-source": "PROFESSIONAL / OPEN SOURCE",
+  supporting: "SUPPORTING WORK",
+};
+
+const statusLabels = {
+  ongoing: "IN DEVELOPMENT",
+  published: "PUBLIC RELEASE",
+};
+---
+
+<section class="content-section" id="projects">
+  <div class="section-heading">
+    <p class="eyebrow">MODULE 03 // WORK ARCHIVE</p>
+    <h2>Selected projects</h2>
+    <p>
+      A collection of open-source engineering projects, technical
+      explorations, and independent systems.
+    </p>
+  </div>
+
+  <div class="project-archive-header">
+    <span>PROJECT DATABASE</span>
+    <span>{featuredProjects.length} FEATURED RECORDS</span>
+  </div>
+
+  <div class="project-grid">
+    {featuredProjects.map((project, index) => (
+      <article
+        class="project-card"
+        data-category={project.category}
+        data-status={project.status}
+      >
+        <div class="project-card-topline">
+          <span class="project-index">
+            REC.{String(index + 1).padStart(2, "0")}
+          </span>
+
+          <span class="project-status">
+            <span class="project-status-dot"></span>
+            {statusLabels[project.status]}
+          </span>
+        </div>
+
+        <p class="project-category">
+          {categoryLabels[project.category]}
+        </p>
+
+        <h3>{project.name}</h3>
+
+        <p class="project-summary">{project.summary}</p>
+
+        {project.context && (
+          <p class="project-context">{project.context}</p>
+        )}
+
+        <div class="project-details">
+          <div class="project-detail-block">
+            <h4>PROBLEM SPACE</h4>
+            <p>{project.problem}</p>
+          </div>
+
+          <div class="project-detail-block">
+            <h4>ENGINEERING CONTRIBUTIONS</h4>
+            <ul>
+              {project.contribution.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-technologies">
+          <h4>TECHNICAL STACK</h4>
+          <ul>
+            {project.technologies.map((technology) => (
+              <li>{technology}</li>
+            ))}
+          </ul>
+        </div>
+
+        {project.links.length > 0 && (
+          <div class="project-links">
+            {project.links.map((link) => (
+              <a href={link.url} target="_blank" rel="noopener noreferrer">
+                {link.label} <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </article>
+    ))}
+  </div>
+
+  {supportingProjects.length > 0 && (
+    <div class="supporting-projects">
+      <div class="supporting-projects-heading">
+        <div>
+          <p class="eyebrow">ADDITIONAL RECORDS</p>
+          <h3>Supporting work</h3>
+        </div>
+        <span>{supportingProjects.length} RECORD</span>
+      </div>
+
+      {supportingProjects.map((project) => (
+        <article class="supporting-project">
+          <div>
+            <h4>{project.name}</h4>
+            <p>{project.summary}</p>
+            <ul class="supporting-technologies">
+              {project.technologies.map((technology) => (
+                <li>{technology}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="supporting-project-links">
+            {project.links.map((link) => (
+              <a href={link.url} target="_blank" rel="noopener noreferrer">
+                {link.label} ↗
+              </a>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  )}
+
+  <div class="project-archive-footer">
+    <span>END OF INDEX</span>
+    <a
+      href="https://github.com/KadriSof"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      BROWSE ALL REPOSITORIES ↗
+    </a>
+  </div>
+</section>

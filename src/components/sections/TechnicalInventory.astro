@@ -1,0 +1,63 @@
+
+
+---
+import RetroWindow from "../ui/RetroWindow.astro";
+import { skillGroups } from "../../data/skills";
+
+const evidenceLabels = {
+  professional: "PROFESSIONAL",
+  independent: "INDEPENDENT",
+  research: "RESEARCH",
+  familiarity: "FAMILIARITY",
+};
+---
+
+<div class="technical-inventory-module">
+  <div class="inventory-intro">
+    <p class="eyebrow">SYSTEM REGISTRY // TECHNICAL CAPABILITIES</p>
+    <p>
+      Technologies and methods organized by engineering domain.
+      Evidence labels distinguish professional implementation,
+      independent development, research, and familiarity.
+    </p>
+  </div>
+
+  <div class="skill-groups-grid">
+    {skillGroups.map((group, index) => (
+      <RetroWindow title={`REGISTRY / ${String(index + 1).padStart(2, "0")}`}>
+        <div class="skill-group">
+          <div class="skill-group-heading">
+            <h3>{group.title}</h3>
+            <span>{group.skills.length} ENTRIES</span>
+          </div>
+
+          <p class="skill-group-description">{group.description}</p>
+
+          <div class="skill-list">
+            {group.skills.map((skill) => (
+              <div class="skill-entry" data-level={skill.level}>
+                <div class="skill-entry-heading">
+                  <strong>{skill.name}</strong>
+                  <span>{evidenceLabels[skill.level]}</span>
+                </div>
+
+                <p>{skill.evidence}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </RetroWindow>
+    ))}
+  </div>
+
+  <div class="evidence-legend">
+    <span class="evidence-legend-title">EVIDENCE CLASSIFICATION</span>
+
+    <div>
+      <span data-level="professional">PROFESSIONAL</span>
+      <span data-level="independent">INDEPENDENT</span>
+      <span data-level="research">RESEARCH</span>
+      <span data-level="familiarity">FAMILIARITY</span>
+    </div>
+  </div>
+</div>

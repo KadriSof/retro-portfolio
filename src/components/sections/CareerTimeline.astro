@@ -1,0 +1,270 @@
+---
+import { timeline } from "../../data/timeline";
+import RetroWindow from "../ui/RetroWindow.astro";
+import type { TimelineCategory } from "../../types/portfolio";
+
+const categoryConfig: Record<
+  TimelineCategory,
+  { label: string; color: string }
+> = {
+  employment: { label: "EMPLOYMENT", color: "#8cff72" },
+  education: { label: "EDUCATION", color: "#ffb84d" },
+  research: { label: "RESEARCH", color: "#70d9e9" },
+  project: { label: "PROJECT", color: "#d99ceb" },
+};
+
+const orderedTimeline = [...timeline].sort((a, b) =>
+  a.period.start.localeCompare(b.period.start)
+);
+
+const monthIndex = (value: string): number => {
+  const [year, month] = value.split("-").map(Number);
+  return year * 12 + month - 1;
+};
+
+const formatMonth = (value: string): string => {
+  const [year, month] = value.split("-").map(Number);
+
+  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString(
+    "en",
+    {
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    }
+  );
+};
+
+const formatPeriod = (entry: (typeof orderedTimeline)[number]): string =>
+  entry.period.end
+    ? `${formatMonth(entry.period.start)} — ${formatMonth(entry.period.end)}`
+    : `${formatMonth(entry.period.start)} — Present`;
+
+const formatShortDate = (value: string): string => {
+  const [year, month] = value.split("-");
+  return `${year}.${month}`;
+};
+
+// Shared date scale for the two concurrent professional experiences.
+// The end boundary is exclusive so that inclusive month ranges are accurate.
+const overlapStart = monthIndex("2024-06");
+const overlapEndExclusive = monthIndex("2026-06");
+const overlapDuration = overlapEndExclusive - overlapStart;
+
+const concurrentEntries = ["vendeuetech", "norma"]
+  .map((id) => orderedTimeline.find((entry) => entry.id === id))
+  .filter((entry) => entry !== undefined);
+
+const concurrentBarStyle = (
+  entry: (typeof orderedTimeline)[number]
+): string => {
+  const start = monthIndex(entry.period.start);
+  const endExclusive = entry.period.end
+    ? monthIndex(entry.period.end) + 1
+    : overlapEndExclusive;
+
+  const left = ((start - overlapStart) / overlapDuration) * 100;
+  const width = ((endExclusive - start) / overlapDuration) * 100;
+
+  return `--bar-left: ${left}%; --bar-width: ${width}%;`;
+};
+---
+
+<section class="content-section" id="timeline">
+  <div class="section-heading">
+    <p class="eyebrow">MODULE 02 // HISTORY</p>
+    <h2>Career transit map</h2>
+    <p>
+      A chronological route through education, research,
+      professional experience, and independent projects.
+    </p>
+  </div>
+
+  <RetroWindow title="TRANSIT MAP / CAREER HISTORY">
+    <div class="map-intro">
+      <span>ROUTE: PROFESSIONAL JOURNEY</span>
+      <span>STATIONS: {orderedTimeline.length}</span>
+      <span>
+        PERIOD: {formatMonth(orderedTimeline[0].period.start)} — Present
+      </span>
+    </div>
+
+    <div
+      class="career-route-scroll"
+      tabindex="0"
+      aria-label="Horizontally scrollable chronological career map"
+    >
+      <ol
+        class="career-route"
+        style={`--station-count: ${orderedTimeline.length}`}
+      >
+        {orderedTimeline.map((entry, index) => {
+          const category = categoryConfig[entry.category];
+
+          return (
+            <li
+              class:list={[
+                "career-route-item",
+                `station-${entry.category}`,
+                index % 2 === 0 ? "caption-above" : "caption-below",
+                index >= orderedTimeline.length - 2 ? "tooltip-left" : "",
+              ]}
+              style={`--station-color: ${category.color}`}
+            >
+              <a
+                class="career-station"
+                href={`#${entry.id}`}
+                aria-label={`${entry.title} at ${entry.organization}`}
+                aria-describedby={`tooltip-${entry.id}`}
+              >
+                <span class="station-node"></span>
+                <span class="station-date">
+                  {formatShortDate(entry.period.start)}
+                </span>
+              </a>
+
+              <div
+                class="station-tooltip"
+                id={`tooltip-${entry.id}`}
+                role="tooltip"
+              >
+                <div class="tooltip-header">
+                  <span class="tooltip-category">{category.label}</span>
+                  <span class="tooltip-period">{formatPeriod(entry)}</span>
+                </div>
+
+                <h3>{entry.title}</h3>
+                <p class="tooltip-organization">{entry.organization}</p>
+                <p class="tooltip-location">{entry.location}</p>
+
+                <p class="tooltip-description">{entry.description}</p>
+
+                <ul class="tooltip-highlights">
+                  {entry.highlights.slice(0, 2).map((highlight) => (
+                    <li>{highlight}</li>
+                  ))}
+                </ul>
+
+                <div class="tooltip-tracks">
+                  {entry.tracks.map((track) => (
+                    <span>{track}</span>
+                  ))}
+                </div>
+
+                <a class="tooltip-link" href={`#${entry.id}`}>
+                  VIEW FULL MILESTONE →
+                </a>
+              </div>
+
+              <div class="station-caption">
+                <span class="station-caption-category">{category.label}</span>
+                <strong>{entry.organization}</strong>
+                <span>{entry.title}</span>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+
+    <div class="map-legend">
+      {Object.entries(categoryConfig).map(([key, category]) => (
+        <span class="map-legend-item">
+          <span
+            class="map-legend-color"
+            style={`--track-color: ${category.color}`}
+          ></span>
+          {category.label}
+        </span>
+      ))}
+    </div>
+
+    <p class="map-instruction">
+      HOVER OR FOCUS A STATION FOR DETAILS · SELECT A STATION TO VIEW
+      ITS FULL MILESTONE
+    </p>
+
+    <div class="concurrent-experience">
+      <div class="concurrent-heading">
+        <p class="eyebrow">TIMELINE DETAIL // 2024–2026</p>
+        <h3>Concurrent professional experience</h3>
+        <p>
+          Two engagements running in parallel. Their durations are shown
+          against the same chronological scale.
+        </p>
+      </div>
+
+      <div class="concurrent-chart">
+        {concurrentEntries.map((entry) => {
+          const category = categoryConfig[entry.category];
+
+          return (
+            <div class="concurrent-row">
+              <div class="concurrent-label">
+                <strong>{entry.organization}</strong>
+                <span>{formatPeriod(entry)}</span>
+              </div>
+
+              <div class="concurrent-track">
+                <div
+                  class="concurrent-bar"
+                  style={`${concurrentBarStyle(entry)} --station-color: ${category.color}`}
+                  title={`${entry.organization}: ${formatPeriod(entry)}`}
+                ></div>
+              </div>
+            </div>
+          );
+        })}
+
+        <div class="concurrent-axis">
+          <span class="concurrent-axis-spacer"></span>
+          <div class="concurrent-axis-labels">
+            <span>JUN 2024</span>
+            <span>JUN 2025</span>
+            <span>JUN 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="concurrent-note">
+        VendueTech and Norma overlapped from September 2024 through June 2025.
+      </p>
+    </div>
+  </RetroWindow>
+
+  <div class="timeline-entry-grid">
+    {orderedTimeline.map((entry) => (
+      <article
+        class="timeline-entry"
+        id={entry.id}
+        data-category={entry.category}
+      >
+        <div class="timeline-entry-header">
+          <span class="timeline-category">
+            {categoryConfig[entry.category].label}
+          </span>
+          <span class="timeline-period">{formatPeriod(entry)}</span>
+        </div>
+
+        <h3>{entry.title}</h3>
+        <p class="timeline-organization">
+          {entry.organization} · {entry.location}
+        </p>
+
+        <p>{entry.description}</p>
+
+        <ul class="timeline-highlights">
+          {entry.highlights.map((highlight) => (
+            <li>{highlight}</li>
+          ))}
+        </ul>
+
+        <div class="timeline-tracks">
+          {entry.tracks.map((track) => (
+            <span class="timeline-track-tag">{track}</span>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

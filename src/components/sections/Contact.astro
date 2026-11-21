@@ -1,0 +1,107 @@
+
+
+---
+import RetroWindow from "../ui/RetroWindow.astro";
+import { profile } from "../../data/profile";
+
+const github = profile.links.find((link) => link.label === "GitHub");
+const linkedin = profile.links.find((link) => link.label === "LinkedIn");
+---
+
+<section class="content-section" id="contact">
+  <div class="section-heading">
+    <p class="eyebrow">MODULE 05 // CONNECTION</p>
+    <h2>Establish contact</h2>
+    <p>
+      Have a project, an engineering challenge, or an idea worth exploring?
+      Let's start a conversation.
+    </p>
+  </div>
+
+  <RetroWindow title="COMMUNICATION TERMINAL / ONLINE">
+    <div class="contact-terminal">
+      <div class="contact-terminal-header">
+        <span class="terminal-indicator"></span>
+        <span>SECURE CHANNEL INITIALIZED</span>
+        <span class="terminal-header-status">READY</span>
+      </div>
+
+      <div class="contact-terminal-body">
+        <div class="contact-output">
+          <p>
+            <span class="terminal-prefix">system@sof:~$</span>
+            ./establish_connection.sh
+          </p>
+
+          <p class="terminal-success">
+            Connection interface initialized.
+          </p>
+
+          <p>
+            This channel is open for professional inquiries,
+            technical discussions, and collaboration opportunities.
+          </p>
+
+          <p class="terminal-muted">
+            Select a communication endpoint below.
+          </p>
+        </div>
+
+        <div class="contact-primary">
+          <span class="contact-label">PRIMARY CHANNEL</span>
+
+          <a
+            class="contact-email"
+            href={`mailto:${profile.email}`}
+          >
+            {profile.email}
+          </a>
+
+          <a
+            class="pixel-button contact-email-button"
+            href={`mailto:${profile.email}`}
+          >
+            INITIATE EMAIL <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="contact-endpoints">
+          <span class="contact-label">ALTERNATIVE ENDPOINTS</span>
+
+          <div class="contact-links">
+            {github && (
+              <a
+                class="contact-link"
+                href={github.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>01 /</span>
+                <strong>GitHub</strong>
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+
+            {linkedin && (
+              <a
+                class="contact-link"
+                href={linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>02 /</span>
+                <strong>LinkedIn</strong>
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-terminal-footer">
+        <span>END OF TRANSMISSION</span>
+        <span>STATUS: OPERATIONAL</span>
+      </div>
+    </div>
+  </RetroWindow>
+</section>

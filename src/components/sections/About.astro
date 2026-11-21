@@ -1,0 +1,67 @@
+
+
+---
+import { profile } from "../../data/profile";
+import RetroWindow from "../ui/RetroWindow.astro";
+---
+
+<section class="content-section" id="profile">
+  <div class="section-heading">
+    <p class="eyebrow">MODULE 01 // IDENTITY</p>
+    <h2>System profile</h2>
+    <p>Operator background and primary engineering domains.</p>
+  </div>
+
+  <RetroWindow title="IDENTITY / OPERATOR RECORD">
+    <div class="profile-layout">
+      <div class="profile-main">
+        <p class="eyebrow">IDENTIFICATION</p>
+        <h3 class="profile-name">{profile.name}</h3>
+        <p class="profile-headline">{profile.headline}</p>
+
+        <p class="profile-summary">{profile.summary}</p>
+
+        <div class="profile-location">
+          <span class="profile-key">BASE LOCATION</span>
+          <span>{profile.location}</span>
+        </div>
+
+        <div class="profile-links">
+          {profile.links.map((link) => (
+            <a
+              class="pixel-button pixel-button--secondary"
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link.label}
+              <span aria-hidden="true"> ↗</span>
+            </a>
+          ))}
+
+          <a
+            class="pixel-button pixel-button--secondary"
+            href={`mailto:${profile.email}`}
+          >
+            Email
+          </a>
+        </div>
+      </div>
+
+      <aside class="profile-domains">
+        <p class="eyebrow">PRIMARY DOMAINS</p>
+
+        <ul class="domain-list">
+          {profile.domains.map((domain, index) => (
+            <li>
+              <span class="domain-index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span>{domain}</span>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </RetroWindow>
+</section>

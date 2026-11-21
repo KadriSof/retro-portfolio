@@ -1,0 +1,29 @@
+---
+interface Props {
+  command: string;
+  output?: string;
+  user?: string;
+  directory?: string;
+}
+
+const {
+  command,
+  output,
+  user = "guest",
+  directory = "~/portfolio",
+} = Astro.props;
+---
+
+<div class="terminal" aria-label={`Terminal command: ${command}`}>
+  <p class="terminal-line">
+    <span class="terminal-prompt">{user}@portfolio</span>
+    <span class="muted">:</span>
+    <span class="accent">{directory}</span>
+    <span class="terminal-prompt">$</span>
+    <span class="terminal-command">{command}</span>
+  </p>
+
+  {output && (
+    <p class="terminal-line terminal-output">{output}</p>
+  )}
+</div>

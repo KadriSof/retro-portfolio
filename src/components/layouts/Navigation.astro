@@ -1,0 +1,27 @@
+
+
+---
+const links = [
+  { label: "PROFILE", href: "#profile" },
+  { label: "TIMELINE", href: "#timeline" },
+  { label: "PROJECTS", href: "#projects" },
+  { label: "SKILLS", href: "#skills" },
+  { label: "CONTACT", href: "#contact" },
+];
+---
+
+<header class="site-nav">
+  <nav class="nav-inner" aria-label="Main navigation">
+    <a class="nav-brand" href="#home" aria-label="Go to homepage">
+      SOF.EXE
+    </a>
+
+    <ul class="nav-links">
+      {links.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
