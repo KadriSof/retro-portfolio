@@ -1512,11 +1512,9 @@
 
 .skill-level-tag {
   display: inline-flex;
-  flex: 0 0 6.5rem;
   align-items: center;
-  justify-content: center;
-  padding: 0.2rem 0.45rem;
-  border: 1px solid currentColor;
+  margin-left: auto;
+  text-align: right;
   font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.05em;
