@@ -31,13 +31,14 @@ export const engineeringAttributes: EngineeringAttribute[] = [
     label: "Electronics & Instrumentation",
     score: 2,
     evidence:
-      "Electronics engineering, PCB prototyping, and camera instrumentation",
+      "Electronics engineering, PCB prototyping, signal processing, and camera instrumentation",
   },
   {
     id: "research",
-    label: "Research & Signal Processing",
+    label: "Research & Development",
     score: 3,
-    evidence: "Engineering research, signal processing, and analytical methods",
+    evidence:
+      "Engineering research, experimental design, statistical modeling, and analytical methods",
   },
 ];
 
