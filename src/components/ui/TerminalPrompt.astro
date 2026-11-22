@@ -9,9 +9,13 @@ interface Props {
 const {
   command,
   output,
-  user = "guest",
-  directory = "~/portfolio",
-} = Astro.props;
+  user = "operator",
+  directory = "~",
+  } = Astro.props;
+
+const lines = output === undefined
+  ? []
+  : Array.isArray(output) ? output : [output];
 ---
 
 <div class="terminal" aria-label={`Terminal command: ${command}`}>
@@ -23,7 +27,7 @@ const {
     <span class="terminal-command">{command}</span>
   </p>
 
-  {output && (
-    <p class="terminal-line terminal-output">{output}</p>
-  )}
+  {lines.map((line) => (
+    <p class="terminal-line terminal-output" aria-hidden="true">{line}</p>
+  ))}
 </div>
