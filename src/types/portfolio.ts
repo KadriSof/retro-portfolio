@@ -85,15 +85,15 @@ export interface Project {
   context?: string;
 }
 
-export type SkillEvidenceLevel =
-  | "professional"
-  | "independent"
-  | "research"
-  | "familiarity";
+export type SkillProficiency =
+  | "expert"
+  | "advanced"
+  | "intermediate"
+  | "novice";
 
 export interface Skill {
   name: string;
-  level: SkillEvidenceLevel;
+  level: SkillProficiency;
   evidence: string;
 }
 

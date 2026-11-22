@@ -28,8 +28,8 @@ export const engineeringAttributes: EngineeringAttribute[] = [
   },
   {
     id: "systems",
-    label: "Systems & Instrumentation",
-    score: 3,
+    label: "Electronics & Instrumentation",
+    score: 2,
     evidence:
       "Electronics engineering, PCB prototyping, and camera instrumentation",
   },
@@ -49,28 +49,28 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Python",
-        level: "professional",
+        level: "expert",
         evidence: "Backend systems, data pipelines, ML, and AI applications",
       },
       {
         name: "SQL",
-        level: "professional",
+        level: "intermediate",
         evidence:
           "Data processing, relational modeling, and database development",
       },
       {
         name: "C++",
-        level: "independent",
+        level: "intermediate",
         evidence: "Symbolic-Memory Graph implementation",
       },
       {
         name: "Bash",
-        level: "professional",
+        level: "intermediate",
         evidence: "Linux tooling and Bashkuto runtime development",
       },
       {
         name: "Java",
-        level: "familiarity",
+        level: "intermediate",
         evidence: "Programming experience",
       },
     ],
@@ -83,33 +83,33 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "FastAPI",
-        level: "professional",
-        evidence: "Backend and API development",
+        level: "advanced",
+        evidence: "[Professional:Norma] Backend and API development",
       },
       {
         name: "Flask",
-        level: "professional",
-        evidence: "Python application development",
+        level: "advanced",
+        evidence: "[Professional:Norma] Python application development",
       },
       {
         name: "Django",
-        level: "familiarity",
-        evidence: "Framework experience",
+        level: "advanced",
+        evidence: "[Professional:Norma] Framework experience",
       },
       {
         name: "Spring",
-        level: "familiarity",
-        evidence: "Java framework experience",
+        level: "intermediate",
+        evidence: "[Project:DocFlow] Java framework experience",
       },
       {
         name: "Git",
-        level: "professional",
+        level: "advanced",
         evidence:
           "Version control across professional and independent projects",
       },
       {
         name: "Linux",
-        level: "independent",
+        level: "advanced",
         evidence: "Development environments, shell tooling, and systems work",
       },
     ],
@@ -122,38 +122,42 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Apache Spark",
-        level: "professional",
-        evidence: "Distributed ETL pipelines at VendueTech",
+        level: "advanced",
+        evidence: "[Professional:VendueTech] Distributed ETL pipelines",
       },
       {
         name: "Delta Lake",
-        level: "professional",
-        evidence: "Medallion data architecture at VendueTech",
+        level: "advanced",
+        evidence: "[Professional:VendueTech] Medallion data architecture",
       },
       {
         name: "Databricks",
-        level: "professional",
-        evidence: "ETL development and data processing",
+        level: "advanced",
+        evidence:
+          "[Professional:VendueTech] ETL development and data processing",
       },
       {
         name: "Apache Airflow",
-        level: "independent",
-        evidence: "GridPulse orchestration and producer/consumer pipelines",
+        level: "intermediate",
+        evidence:
+          "[Project:GridPulse] orchestration and producer/consumer pipelines",
       },
       {
         name: "PostgreSQL",
-        level: "independent",
-        evidence: "GridPulse platform and relational data storage",
+        level: "intermediate",
+        evidence:
+          "[Project:GridPulse] GridPulse platform and relational data storage",
       },
       {
         name: "MySQL",
-        level: "professional",
-        evidence: "Optoscopia acquisition and processing database",
+        level: "advanced",
+        evidence:
+          "[Professional:Optoscopia] acquisition and processing database",
       },
       {
         name: "dbt",
-        level: "familiarity",
-        evidence: "Planned analytical transformation layer in GridPulse",
+        level: "intermediate",
+        evidence: "[Project:GridPulse] Planned analytical transformation layer",
       },
     ],
   },
@@ -165,44 +169,45 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "OCR / NLP",
-        level: "professional",
-        evidence: "Legal-document processing at Norma",
+        level: "advanced",
+        evidence: "[Professional:Norma] Legal documents processing",
       },
       {
         name: "LLM Applications",
-        level: "professional",
+        level: "expert",
         evidence:
-          "Document automation, extraction, and conversational applications",
+          "[Professional:Norma] Document automation, extraction, and conversational applications",
       },
       {
         name: "LangChain / LangGraph",
-        level: "professional",
-        evidence: "Stateful agent development at Norma",
+        level: "advanced",
+        evidence: "[Professional:Norma] Stateful agent development",
       },
       {
         name: "LLM Evaluation",
-        level: "professional",
-        evidence: "Evaluation framework and regression testing",
+        level: "expert",
+        evidence:
+          "[Professional:Norma] Evaluation framework and regression testing",
       },
       {
         name: "Embeddings",
-        level: "professional",
+        level: "advanced",
         evidence:
-          "Semantic similarity evaluation and retrieval-oriented applications",
+          "[Professional:Norma] Semantic similarity evaluation and retrieval-oriented applications",
       },
       {
         name: "LlamaIndex",
-        level: "familiarity",
+        level: "intermediate",
         evidence: "Framework experience",
       },
       {
         name: "Google ADK",
-        level: "professional",
-        evidence: "Cloud platform used by Norma",
+        level: "intermediate",
+        evidence: "Framework experience",
       },
       {
         name: "Classical ML",
-        level: "professional",
+        level: "advanced",
         evidence: "Classification, forecasting, and feature analysis",
       },
     ],
@@ -215,30 +220,33 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Image Processing",
-        level: "professional",
-        evidence: "Microscopic image-processing pipelines at Optoscopia",
+        level: "advanced",
+        evidence:
+          "[Professional:Optoscopia] Microscopic image-processing pipelines",
       },
       {
         name: "Camera Calibration",
-        level: "professional",
+        level: "advanced",
         evidence:
-          "Microscope camera configuration and acquisition instrumentation",
+          "[Professional:Optoscopia] Microscope camera configuration and acquisition instrumentation",
       },
       {
         name: "t-SNE / UMAP",
-        level: "professional",
-        evidence: "Feature-space analysis for sperm morphology classification",
+        level: "intermediate",
+        evidence:
+          "[Professional:Optoscopia] Feature-space analysis for sperm morphology classification",
       },
       {
         name: "Signal Processing",
-        level: "research",
-        evidence: "Electrical engineering education and research",
+        level: "intermediate",
+        evidence:
+          "Professional experience at FEMTO-ST and electrical engineering education and research",
       },
       {
         name: "Electronics",
-        level: "research",
+        level: "intermediate",
         evidence:
-          "PCB prototyping and piezoelectric signal conditioning at FEMTO-ST",
+          "[Professional:FEMTO-ST]PCB prototyping and piezoelectric signal conditioning",
       },
     ],
   },
@@ -250,32 +258,34 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Docker",
-        level: "independent",
-        evidence: "Containerized GridPulse development environment",
+        level: "intermediate",
+        evidence:
+          "[Project:GridPulse] Containerized GridPulse development environment",
       },
       {
         name: "Azure",
-        level: "professional",
-        evidence: "Data engineering platform experience",
+        level: "intermediate",
+        evidence:
+          "[Professional:VendueTech] Data engineering platform experience",
       },
       {
         name: "Google Cloud",
-        level: "familiarity",
-        evidence: "Cloud platform experience",
+        level: "intermediate",
+        evidence: "[Professional:Norma] Cloud platform experience",
       },
       {
         name: "Prometheus",
-        level: "familiarity",
-        evidence: "Monitoring and observability tooling",
+        level: "novice",
+        evidence: "[Project:Auditora] Monitoring and observability tooling",
       },
       {
         name: "Jenkins",
-        level: "familiarity",
-        evidence: "CI/CD tooling experience",
+        level: "novice",
+        evidence: "[Project:DocFlow] CI/CD tooling experience",
       },
       {
         name: "Kubernetes",
-        level: "familiarity",
+        level: "novice",
         evidence: "Container orchestration experience",
       },
     ],

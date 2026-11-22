@@ -1,15 +1,14 @@
 
-
 ---
 import RetroWindow from "../ui/RetroWindow.astro";
 import { skillGroups } from "../../data/skills";
 
-const evidenceLabels = {
-  professional: "PROFESSIONAL",
-  independent: "INDEPENDENT",
-  research: "RESEARCH",
-  familiarity: "FAMILIARITY",
-};
+const proficiencyLabels = {
+  expert: "EXPERT",
+  advanced: "ADVANCED",
+  intermediate: "INTERMEDIATE",
+  novice: "NOVICE",
+} as const;
 ---
 
 <div class="technical-inventory-module">
@@ -17,8 +16,8 @@ const evidenceLabels = {
     <p class="eyebrow">SYSTEM REGISTRY // TECHNICAL CAPABILITIES</p>
     <p>
       Technologies and methods organized by engineering domain.
-      Evidence labels distinguish professional implementation,
-      independent development, research, and familiarity.
+      Proficiency levels indicate the depth of practical knowledge
+      and demonstrated ability.
     </p>
   </div>
 
@@ -38,7 +37,9 @@ const evidenceLabels = {
               <div class="skill-entry" data-level={skill.level}>
                 <div class="skill-entry-heading">
                   <strong>{skill.name}</strong>
-                  <span>{evidenceLabels[skill.level]}</span>
+                  <span class="skill-level-tag" data-level={skill.level}>
+                    {proficiencyLabels[skill.level]}
+                  </span>
                 </div>
 
                 <p>{skill.evidence}</p>
@@ -50,14 +51,14 @@ const evidenceLabels = {
     ))}
   </div>
 
-  <div class="evidence-legend">
-    <span class="evidence-legend-title">EVIDENCE CLASSIFICATION</span>
+  <div class="skill-level-legend">
+    <span class="skill-level-legend-title">SKILL LEVEL</span>
 
     <div>
-      <span data-level="professional">PROFESSIONAL</span>
-      <span data-level="independent">INDEPENDENT</span>
-      <span data-level="research">RESEARCH</span>
-      <span data-level="familiarity">FAMILIARITY</span>
+      <span data-level="expert">EXPERT</span>
+      <span data-level="advanced">ADVANCED</span>
+      <span data-level="intermediate">INTERMEDIATE</span>
+      <span data-level="novice">NOVICE</span>
     </div>
   </div>
 </div>
