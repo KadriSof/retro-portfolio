@@ -7,9 +7,9 @@ const categoryConfig: Record<
   TimelineCategory,
   { label: string; color: string }
 > = {
-  employment: { label: "EMPLOYMENT", color: "#8cff72" },
-  education: { label: "EDUCATION", color: "#ffb84d" },
-  research: { label: "RESEARCH", color: "#70d9e9" },
+  employment: { label: "EMPLOYMENT", color: "#82EE75" },
+  education: { label: "EDUCATION", color: "#EAB156" },
+  research: { label: "RESEARCH", color: "#68CCDF" },
   project: { label: "PROJECT", color: "#d99ceb" },
 };
 
@@ -44,6 +44,40 @@ const formatShortDate = (value: string): string => {
   const [year, month] = value.split("-");
   return `${year}.${month}`;
 };
+
+// Date-scaled career route.
+// Each month occupies a fixed horizontal distance.
+const timelineStartIndex = Math.min(
+  ...orderedTimeline.map((entry) => monthIndex(entry.period.start))
+);
+
+const timelineEndIndex = Math.max(
+  ...orderedTimeline.map((entry) => monthIndex(entry.period.start))
+);
+
+const pixelsPerMonth = 10;
+const routePadding = 85;
+
+const routeWidth =
+  routePadding * 2 +
+  (timelineEndIndex - timelineStartIndex) * pixelsPerMonth;
+
+const stationPosition = (
+  entry: (typeof orderedTimeline)[number]
+): number =>
+  routePadding +
+  (monthIndex(entry.period.start) - timelineStartIndex) * pixelsPerMonth;
+
+// VendueTech parallel route: June 2024 → June 2025.
+const branchStartX =
+  routePadding +
+  (monthIndex("2024-06") - timelineStartIndex) * pixelsPerMonth;
+
+const branchEndX =
+  routePadding +
+  (monthIndex("2025-06") - timelineStartIndex) * pixelsPerMonth;
+
+const branchWidth = branchEndX - branchStartX;
 
 // Shared date scale for the two concurrent professional experiences.
 // The end boundary is exclusive so that inclusive month ranges are accurate.
@@ -94,10 +128,22 @@ const concurrentBarStyle = (
       tabindex="0"
       aria-label="Horizontally scrollable chronological career map"
     >
-      <ol
-        class="career-route"
-        style={`--station-count: ${orderedTimeline.length}`}
+      <div
+        class="career-route-canvas"
+        style={`--route-width: ${routeWidth}px; --branch-left: ${branchStartX}px; --branch-width: ${branchWidth}px`}
       >
+        <svg
+          class="career-branch"
+          viewBox={`0 0 ${branchWidth} 145`}
+          aria-hidden="true"
+        >
+          <path
+            d={`M 0 0 C 0 36 12 58 26 68 H ${branchWidth - 26} C ${branchWidth - 12} 58 ${branchWidth} 36 ${branchWidth} 0`}
+          />
+          <text x={branchWidth / 2} y="105">VENDUETECH</text>
+        </svg>
+
+        <ol class="career-route">
         {orderedTimeline.map((entry, index) => {
           const category = categoryConfig[entry.category];
 
@@ -109,7 +155,7 @@ const concurrentBarStyle = (
                 index % 2 === 0 ? "caption-above" : "caption-below",
                 index >= orderedTimeline.length - 2 ? "tooltip-left" : "",
               ]}
-              style={`--station-color: ${category.color}`}
+              style={`--station-color: ${category.color}; --station-x: ${stationPosition(entry)}px`}
             >
               <a
                 class="career-station"
@@ -165,6 +211,7 @@ const concurrentBarStyle = (
           );
         })}
       </ol>
+      </div>
     </div>
 
     <div class="map-legend">

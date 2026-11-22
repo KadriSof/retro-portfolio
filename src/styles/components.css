@@ -211,10 +211,17 @@
   align-items: center;
 }
 
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* or space-between, per my last message */
+  max-width: 760px;
+}
+
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
-  align-items: center;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr);
+  align-items: stretch;
   gap: clamp(2rem, 6vw, 5rem);
 }
 
@@ -224,6 +231,7 @@
 }
 
 .hero-copy h1 span {
+  display: block;
   color: var(--color-text);
 }
 
@@ -255,7 +263,7 @@
 
 .hero-card .window-body {
   display: grid;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .hero-card-row {
@@ -274,6 +282,27 @@
 .hero-card-row span:last-child {
   color: var(--color-cyan);
   text-align: right;
+}
+
+.hero-portrait {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.hero-portrait img {
+  display: block;
+  width: min(220px, 100%); /* half of 588px, but never overflow the card */
+  height: auto;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 12px rgb(140 255 114 / 25%);
+}
+
+.hero-portrait figcaption {
+  color: var(--color-text-dim);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
 }
 
 /* Section placeholders */
@@ -345,6 +374,11 @@
 
   .hero-grid {
     grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .hero-copy {
+    justify-content: flex-start;
   }
 
   .hero-card {
@@ -459,19 +493,26 @@
   padding: 0.5rem 0 1rem;
 }
 
-.career-route {
+/* Date-scaled career route */
+
+.career-route-canvas {
   position: relative;
-  display: flex;
-  align-items: stretch;
-  width: max-content;
+  width: var(--route-width);
   min-width: 100%;
   height: 520px;
+}
+
+.career-route {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* Continuous, vertically centered route */
+/* Neutral main route */
 
 .career-route::before {
   content: "";
@@ -479,17 +520,57 @@
   z-index: 0;
   top: 258px;
   left: 85px;
-  right: 85px;
+  right: 0;
   height: 5px;
   border-radius: 5px;
-  background: var(--color-green);
-  box-shadow: 0 0 9px rgb(140 255 114 / 20%);
+  background: #a5a5a5;
 }
 
+/* Stations positioned according to their start dates */
+
 .career-route-item {
-  position: relative;
-  flex: 0 0 180px;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: var(--station-x);
+  width: 0;
   height: 520px;
+}
+
+.career-route-item:hover,
+.career-route-item:focus-within {
+  z-index: 20;
+}
+
+/* VendueTech parallel employment route */
+
+.career-branch {
+  position: absolute;
+  z-index: 1;
+  top: 258px;
+  left: var(--branch-left);
+  width: var(--branch-width);
+  height: 145px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.career-branch path {
+  fill: none;
+  stroke: #82ee75;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px rgb(130 238 117 / 25%));
+}
+
+.career-branch text {
+  fill: #82ee75;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
 }
 
 /* Station anchor */
@@ -497,7 +578,7 @@
 .career-station {
   position: absolute;
   z-index: 3;
-  top: 241px;
+  top: 246px;
   left: 50%;
   display: flex;
   flex-direction: column;
@@ -511,9 +592,9 @@
 
 .station-node {
   display: block;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
   border: 5px solid var(--station-color);
   border-radius: 50%;
   background: #101310;
@@ -592,7 +673,7 @@
   position: absolute;
   z-index: 10;
   top: 50%;
-  left: calc(50% + 48px);
+  left: 48px;
   display: block;
   visibility: hidden;
   width: 280px;
@@ -602,8 +683,8 @@
   border-top: 3px solid var(--station-color);
   background: #111712;
   box-shadow:
-    0 8px 28px rgb(0 0 0 / 65%),
-    0 0 12px rgb(140 255 114 / 8%);
+    0 8px 28px rgb(0 0 0 / 75%),
+    0 0 12px rgb(140 255 114 / 35%);
   color: var(--color-text);
   text-align: left;
   opacity: 0;
@@ -616,7 +697,7 @@
 /* Keep tooltips inside the map at its right edge */
 
 .tooltip-left .station-tooltip {
-  right: calc(50% + 48px);
+  right: 48px;
   left: auto;
 }
 
@@ -1450,6 +1531,7 @@
 
 .skill-groups-grid > .retro-window > .window-body {
   flex: 1;
+  min-width: 0;
 }
 
 .skill-group-heading {
@@ -1481,6 +1563,7 @@
 .skill-list {
   display: grid;
   gap: 0.75rem;
+  margin-top: 1rem;
 }
 
 .skill-entry {
@@ -1496,46 +1579,60 @@
 .skill-entry-heading {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.35rem 0.75rem;
+  gap: 0.4rem 0.75rem;
 }
 
 .skill-entry-heading strong {
+  flex: 1 1 auto;
+  min-width: 0;
   color: var(--color-text);
   font-size: 0.75rem;
 }
 
-.skill-entry-heading span {
-  color: var(--color-text-dim);
+.skill-level-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  text-align: right;
   font-size: 0.55rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
+  line-height: 1.3;
+  white-space: nowrap;
 }
 
-.skill-entry[data-level="professional"] .skill-entry-heading span {
-  color: var(--color-green);
-}
-
-.skill-entry[data-level="independent"] .skill-entry-heading span {
-  color: var(--color-cyan);
-}
-
-.skill-entry[data-level="research"] .skill-entry-heading span {
+.skill-level-tag[data-level="expert"],
+.skill-level-legend [data-level="expert"] {
   color: var(--color-magenta);
 }
 
-.skill-entry[data-level="familiarity"] .skill-entry-heading span {
+.skill-level-tag[data-level="advanced"],
+.skill-level-legend [data-level="advanced"] {
+  color: var(--color-green);
+}
+
+.skill-level-tag[data-level="intermediate"],
+.skill-level-legend [data-level="intermediate"] {
+  color: var(--color-cyan);
+}
+
+.skill-level-tag[data-level="novice"],
+.skill-level-legend [data-level="novice"] {
   color: var(--color-amber);
 }
 
 .skill-entry p {
-  margin: 0.25rem 0 0;
+  margin: 0.3rem 0 0;
   color: var(--color-text-dim);
   font-size: 0.65rem;
   line-height: 1.6;
 }
 
-.evidence-legend {
+/* Skill proficiency legend */
+
+.skill-level-legend {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1546,35 +1643,21 @@
   background: var(--color-panel);
 }
 
-.evidence-legend-title {
+.skill-level-legend-title {
   color: var(--color-text-muted);
   font-size: 0.62rem;
 }
 
-.evidence-legend > div {
+.skill-level-legend > div {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
 }
 
-.evidence-legend > div span {
+.skill-level-legend > div span {
   font-size: 0.58rem;
-}
-
-.evidence-legend [data-level="professional"] {
-  color: var(--color-green);
-}
-
-.evidence-legend [data-level="independent"] {
-  color: var(--color-cyan);
-}
-
-.evidence-legend [data-level="research"] {
-  color: var(--color-magenta);
-}
-
-.evidence-legend [data-level="familiarity"] {
-  color: var(--color-amber);
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 @media (max-width: 760px) {

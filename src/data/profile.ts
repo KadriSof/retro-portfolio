@@ -4,7 +4,7 @@ export const profile: Profile = {
   name: "Mohamed Sofiene Kadri",
   shortName: "Sof",
 
-  headline: "Software Engineer | Data & AI Systems",
+  headline: "Software Engineer | Data, ML & AI Systems",
 
   location: "Tunis, Tunisia",
 
@@ -20,8 +20,8 @@ export const profile: Profile = {
     "Data Engineering",
     "Machine Learning",
     "Computer Vision",
-    "Systems & Instrumentation",
-    "Research & Signal Processing",
+    "Electronics & Instrumentation",
+    "Research & Developement",
   ],
 
   email: "mohamed.sofiene.kadri@gmail.com",

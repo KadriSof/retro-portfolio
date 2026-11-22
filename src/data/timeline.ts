@@ -12,13 +12,13 @@ export const timeline: TimelineEntry[] = [
       start: "2011-09",
       end: "2014-06",
     },
-    tracks: ["systems", "research", "education"],
+    tracks: ["electrical-engineering", "research", "education"],
     description:
-      "Undertook one year of doctoral studies in electrical engineering, researching sleep-fragmentation analysis in the context of obstructive sleep apnea (OSA).",
+      "Undergraduate engineering education in electrical engineering at the National Engineering School of Carthage.",
 
     highlights: [
-      "Research topic: sleep fragmentation analysis in OSA",
-      "Studies discontinued after one year due to financial constraints",
+      "B.Sc. in Electrical Engineering",
+      "Final result: 86.38% (ECTS)",
     ],
   },
 
@@ -33,17 +33,13 @@ export const timeline: TimelineEntry[] = [
       start: "2014-09",
       end: "2016-11",
     },
-    tracks: ["systems", "research", "education"],
+    tracks: ["electrical-engineering", "research", "education"],
     description:
-      "Research-oriented graduate studies in electrical engineering, with a focus on signal processing and control-related disciplines.",
+      "Research-oriented graduate studies in electrical engineering, with a focus on signal processing and control engineering.",
     highlights: [
       "Research M.Sc. in Electrical Engineering",
       "Final result: 72.50% (ECTS)",
     ],
-    verificationNote:
-      "The two resume versions use different specialization wording: " +
-      "'Automation and Signal Processing' and 'Control Systems and Signal Processing'. " +
-      "Confirm the official wording before publication.",
   },
 
   {

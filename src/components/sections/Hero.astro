@@ -17,10 +17,11 @@ import StatusIndicator from "../ui/StatusIndicator.astro";
       </h1>
 
       <p class="hero-description">
-        Software engineer working across software engineering,
-        data engineering, machine learning, and computer vision.
-        Interested in the systems that connect computation,
-        information, and the physical world.
+        A software craftsman and a data wizard.
+        <br />
+        I build systems that transform complex data into useful intelligence.
+        Working across software engineering, data platforms, machine learning, and computer vision.
+        Interested in the systems that connect computation, information, and the physical world.
       </p>
 
       <div class="hero-actions">
@@ -41,34 +42,43 @@ import StatusIndicator from "../ui/StatusIndicator.astro";
 
     <div class="hero-card">
       <RetroWindow title="SYSTEM / OPERATOR PROFILE">
+        <figure class="hero-portrait">
+          <img
+              src="/images/profile/ascii-art-pic.png"
+            alt="Pixel-art portrait of SOF"
+            width="588"
+            height="495"
+            loading="eager"
+          />
+          <figcaption>OPERATOR: SOF // LV.99</figcaption>
+        </figure>
+
         <div class="hero-card-row">
           <span>IDENTIFIER</span>
           <span>SOF</span>
         </div>
 
         <div class="hero-card-row">
+          <span>CLASS</span>
+          <span>SOFTWARE ENGINEER</span>
+        </div>
+
+        <div class="hero-card-row">
           <span>PRIMARY DOMAIN</span>
-          <span>SOFTWARE</span>
+          <span>SOFTWARE / DATA</span>
         </div>
 
         <div class="hero-card-row">
-          <span>DATA SYSTEMS</span>
-          <span>ACTIVE</span>
-        </div>
-
-        <div class="hero-card-row">
-          <span>INTELLIGENCE</span>
-          <span>ML / CV</span>
-        </div>
-
-        <div class="hero-card-row">
-          <span>INTERFACE</span>
-          <span>ONLINE</span>
+          <span>BACKGROUND</span>
+          <span>ELECTRICAL ENGINEERING</span>
         </div>
 
         <TerminalPrompt
-          command="initialize_portfolio"
-          output="Initialization complete. Welcome."
+          command="init_portfolio"
+          output={[
+            "Loading operator profile...",
+            "Initialization complete 🗹",
+          ]}
         />
       </RetroWindow>
     </div>
